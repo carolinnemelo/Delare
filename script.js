@@ -1,35 +1,54 @@
 
-const btnCheckNumbers = document.querySelector('#checkNumber');
+const btnIsValidNumbers = document.querySelector('#checkNumber');
 
-function checkNumbers() {
+function isValidNumbers() {
     let firstNumber = document.querySelector('#firstNumber');
     let secondNumber = document.querySelector('#secondNumber');
 
-    firstNumber = .9;//firstNumber.value
-    secondNumber = 5;//secondNumber.value
+    firstNumber = 150//firstNumber.value
+    secondNumber = 120//secondNumber.value
+    // console.log(firstNumber, secondNumber);
+    let isValid;
 
-    console.log(firstNumber, secondNumber);
+    const alert = document.querySelector('#alert');
+    let message = '';
 
-    if (firstNumber >= 0 && Number.isInteger(firstNumber)) {
-         console.log('numeros validos');   
-        
+    if (firstNumber === 0  && secondNumber === 0) {
+        message = 'Sorry, only one number can be 0.';
+        isValid = false;
+    } else if (Number.isInteger(firstNumber) && Number.isInteger(secondNumber)) {  
+        message = 'Valid numbers, well done!';
+        isValid = true;
+        alert.textContent = message;
+
+        return  {firstNumber, secondNumber};
     } else {
-        const alert = document.querySelector('#alert');
-        alert.textContent = 'Invalid Number, try again!'
-
+        message = 'Something is wrong, try another number.';
+        isValid = false;
     }
+    alert.textContent = message;
+    return isValid;
     
-    // if (Number.isInteger(firstNumber) === true && firstNumber !== 0 &&
-    //  Number.isInteger(secondNumber) === true && secondNumber !== 0 ) {
-        
-    // } else {
-    //     return console.log('Try another number')
-    // }
-
+    
 }
 
-btnCheckNumbers.addEventListener('click', () => {
+btnIsValidNumbers.addEventListener('click', () => {
+    let {firstNumber, secondNumber} = isValidNumbers();
+    calculateSGD(firstNumber, secondNumber);
 
-    checkNumbers();
 })
 
+function calculateSGD(firstNumber, secondNumber) {
+    let rest;
+    console.log(firstNumber, secondNumber);
+    do {
+        rest = firstNumber % secondNumber;
+        firstNumber = secondNumber;
+        secondNumber = rest;
+        console.log(rest, secondNumber);
+
+    } while (rest != 0);
+
+    console.log(firstNumber);
+
+}
