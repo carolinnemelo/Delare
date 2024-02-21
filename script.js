@@ -1,54 +1,80 @@
 
 const btnIsValidNumbers = document.querySelector('#checkNumber');
+let num1 = document.querySelector('#firstNumber');
+let num2 = document.querySelector('#secondNumber');
+let lines = 0;
 
-function isValidNumbers() {
-    let firstNumber = document.querySelector('#firstNumber');
-    let secondNumber = document.querySelector('#secondNumber');
-
-    firstNumber = 150//firstNumber.value
-    secondNumber = 120//secondNumber.value
-    // console.log(firstNumber, secondNumber);
-    let isValid;
-
-    const alert = document.querySelector('#alert');
+async function isValidNumbers() {
+    let firstNumber = num1.value;
+    let secondNumber = num2.value;
     let message = '';
+    const alert = document.querySelector('#alert');
 
-    if (firstNumber === 0  && secondNumber === 0) {
-        message = 'Sorry, only one number can be 0.';
-        isValid = false;
-    } else if (Number.isInteger(firstNumber) && Number.isInteger(secondNumber)) {  
-        message = 'Valid numbers, well done!';
-        isValid = true;
-        alert.textContent = message;
+        
+    if (isNaN(firstNumber) || isNaN(secondNumber)) {
+        message = 'Only numbers, please.';
 
-        return  {firstNumber, secondNumber};
+    } else if(firstNumber.length === 0 || secondNumber.length === 0 || firstNumber === null || secondNumber === null){
+        message = 'Fill both forms, please.';
     } else {
-        message = 'Something is wrong, try another number.';
-        isValid = false;
+        firstNumber = Number(firstNumber);
+        secondNumber = Number(secondNumber);
+
+
+        if (firstNumber === 0  && secondNumber === 0) {
+            message = 'Sorry, only one number can be 0.';
+            
+        } else if (Number.isInteger(firstNumber) && Number.isInteger(secondNumber)) {  
+            // message = 'Valid numbers, well done!';
+            // alert.textContent = message;
+            const sgd = await calculateSGD(firstNumber, secondNumber);
+            displaySGD(firstNumber, secondNumber, sgd);
+        } else {
+            message = 'Something is wrong, try another number.';
+        }
     }
+
+
     alert.textContent = message;
-    return isValid;
     
     
 }
 
 btnIsValidNumbers.addEventListener('click', () => {
-    let {firstNumber, secondNumber} = isValidNumbers();
-    calculateSGD(firstNumber, secondNumber);
+    isValidNumbers();
 
+ 
 })
 
 function calculateSGD(firstNumber, secondNumber) {
     let rest;
-    console.log(firstNumber, secondNumber);
     do {
         rest = firstNumber % secondNumber;
         firstNumber = secondNumber;
         secondNumber = rest;
-        console.log(rest, secondNumber);
+
 
     } while (rest != 0);
+    
+    const sgd = firstNumber;
+    return sgd
 
-    console.log(firstNumber);
+  
+
+}
+
+function displaySGD(firstNumber, secondNumber, sgd) {
+    const main = document.querySelector('#results')
+    const p = document.querySelector('.result');
+    const newP = p.cloneNode(true);
+    console.log(newP);
+    newP.classList.remove('d-none');
+    newP.textContent = `Största gemensamma delare mellan ${firstNumber} och ${secondNumber} är ${sgd}.`;
+    main.appendChild(newP);
+    lines ++;
+    if(lines > 5) {
+        main.removeChild(main.children[1]);
+    }
+
 
 }

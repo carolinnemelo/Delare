@@ -7,17 +7,33 @@
     <title>Delare</title>
     <script type="module" src="script.js" defer></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="./src/main.css">
+    <link rel="stylesheet" href="/src/main.css">
     
   </head>
-  <body class="text-center">
-        <h2>Hello, welcome to the future.</h2>
-        <p id="alert" class=""></p>
-        <input type="text" placeholder="first number" id="firstNumber">
-        <input type="text" placeholder="second number" id="secondNumber">
-        <button id="checkNumber">ok</button>
-        <h3 id="inputedNumbers"></h3>
+  <body class="bg-success text-white d-flex justify-content-center mx-auto  vh-100">
+        <main class="text-center align-self-center">
+            <h1 class="">Uppgift - SGD</h1>
+            <h2 class="">Största gemensamma delare</h2>
+            <p id="alert" class="text-danger bg-danger-subtle "></p>
+            <div class="input1 d-flex mb-3">
+                
+                <label class="text-white form-text w-25 text-start" for="firstNumber">Heltal:</label>
+                <input class="form-control rounded-pill" type="text" placeholder="Skriv ett nummer här" id="firstNumber" >
+            </div>
+    
+            <div class="input2 d-flex mb-3">
+    
+                <label class=" text-white form-text w-25 text-start" for="secondNumber">Heltal:</label>
+                <input class="form-control rounded-pill" type="text" placeholder="Skriv ett nummer här" id="secondNumber">
+            </div>
+            <button class="btn rounded-pill btn-danger px-4" id="checkNumber">Räkna</button>
+            <div id="results">
+                <p class="result d-none my-3 rounded-pill bg-white text-dark py-1 px-3"></p>
 
-    <div id="app"></div>
+            </div>
+        </main>
+        
+
+
   </body>
 </html>
